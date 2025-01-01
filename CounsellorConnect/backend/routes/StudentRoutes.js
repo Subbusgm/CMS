@@ -41,6 +41,12 @@ router.post(
       .withMessage("Branch is required")
       .isString()
       .withMessage("Branch must be a valid string"),
+    body("faculty_id")
+      .not()
+      .isEmpty()
+      .withMessage("Faculty_ID is required")
+      .isString()
+      .withMessage("Faculty_ID must be a valid string"),
     body("password")
       .isLength({ min: 6 })
       .withMessage("Password must be at least 6 characters long"),

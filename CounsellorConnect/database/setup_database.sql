@@ -1,5 +1,5 @@
-CREATE DATABASE counsellor_management;
-USE counsellor_management;
+CREATE DATABASE counselor_management;
+USE counselor_management;
 
 -- Faculty Table
 CREATE TABLE faculty (
