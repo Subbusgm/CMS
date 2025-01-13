@@ -1,12 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import clogo from "../../public/clogo.png"
+import option from "../../public/option.jpg"
 
 const Header = () => {
   return (
     <div className="header">
       <header className="header-content">
         <Link to="/" className="logo">
-          <img src="clogo.png" alt="CC" className="logo-icon" />
+          <img src={clogo} alt="CC" className="logo-icon" />
           <span className="logo-text">CounselorConnect</span>
         </Link>
 
@@ -30,7 +32,7 @@ const Header = () => {
         </Link>
 
         <button type="button" className="menu-button">
-          <img src="option.jpg" alt="menu-button" className="menu-icon" />
+          <img src={option} alt="menu-button" className="menu-icon" />
         </button>
       </header>
     </div>
