@@ -9,6 +9,7 @@ const StudentRegistration = () => {
     phoneNumber: "",
     email: "",
     branch: "",
+    faculty_id: "",
     password: "",
   });
 
@@ -22,6 +23,7 @@ const StudentRegistration = () => {
     if (!formData.phoneNumber) newErrors.phoneNumber = "Phone Number is required";
     if (!formData.email) newErrors.email = "Email is required";
     if (!formData.branch) newErrors.branch = "Branch is required";
+    if (!formData.branch) newErrors.faculty_id = "Faculty ID is required";
     if (!formData.password) newErrors.password = "Password is required";
     if (formData.password && formData.password.length < 6)
       newErrors.password = "Password should be at least 6 characters long";
@@ -137,6 +139,18 @@ const StudentRegistration = () => {
                 placeholder="Enter your Branch"
               />
               {errors.branch && <span>{errors.branch}</span>}
+            </div>
+            <div className="form-group">
+              <label htmlFor="faculty_id">Faculty_ID</label>
+              <input
+                type="text"
+                id="faculty_id"
+                name="faculty_id"
+                value={formData.faculty_id}
+                onChange={handleChange}
+                placeholder="Enter your Faculty Id"
+              />
+              {errors.faculty_id && <span>{errors.faculty_id}</span>}
             </div>
             <div className="form-group">
               <label htmlFor="password">Password</label>
