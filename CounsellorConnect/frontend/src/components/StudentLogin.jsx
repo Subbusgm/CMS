@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Header from "./Header";
+import { useNavigate } from "react-router-dom";
 
 const StudentLogin = () => {
   const [formData, setFormData] = useState({
     usn: "",
     password: "",
   });
+  const navigate = useNavigate();
   const [errors, setErrors] = useState({});
   const [isLoading, setIsLoading] = useState(false);  // Add loading state
 

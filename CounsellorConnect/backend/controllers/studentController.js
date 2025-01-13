@@ -1,68 +1,84 @@
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const { validationResult } = require("express-validator");
 const db = require('../config/db');
 
-// Fetch student profile with attendance and event details
-const getStudentProfile = async (req, res) => {
+const studentProfile = async (req, res) => {
   const { usn } = req.params;
 
   try {
-    // Query for attendance details
-    const attendanceQuery = `
+    // Query to fetch student details along with the assigned faculty's name
+    const [rows] = await db.promise().query(
+      `
       SELECT 
-        attendance.percentage AS attendance_percentage,
-        course.course_code,
-        course.course_name,
-        course.handled_by,
-        CONCAT(faculty.first_name, ' ', faculty.last_name) AS faculty_name
-      FROM attendance
-      JOIN course ON attendance.course_code = course.course_code
-      JOIN faculty ON course.handled_by = faculty.email_id
-      WHERE attendance.student_usn = ?;
-    `;
+        s.usn, s.first_name, s.last_name, s.branch, s.number_of_backlogs, 
+        s.cgpa, s.email_id, s.phone_number, 
+        f.first_name AS faculty_first_name, f.last_name AS faculty_last_name 
+      FROM 
+        student s
+      LEFT JOIN 
+        faculty f ON s.faculty_id = f.faculty_id
+      WHERE 
+        s.usn = ?
+      `,
+      [usn]
+    );
 
-    // Query for events participated by the student
-    const eventsQuery = `
-      SELECT 
-        activity_points.event_id,
-        activity_points.event_name,
-        activity_points.points_awarded
-      FROM student_event_participation
-      JOIN activity_points ON student_event_participation.event_id = activity_points.event_id
-      WHERE student_event_participation.student_usn = ?;
-    `;
-
-    // Execute queries in parallel
-    const attendancePromise = new Promise((resolve, reject) => {
-      db.query(attendanceQuery, [usn], (err, results) => {
-        if (err) return reject(err);
-        resolve(results);
-      });
-    });
-
-    const eventsPromise = new Promise((resolve, reject) => {
-      db.query(eventsQuery, [usn], (err, results) => {
-        if (err) return reject(err);
-        resolve(results);
-      });
-    });
-
-    const [attendanceData, eventsData] = await Promise.all([attendancePromise, eventsPromise]);
-
-    // Check if data is available
-    if (!attendanceData.length && !eventsData.length) {
-      return res.status(404).json({ message: 'No data found for the student' });
+    if (rows.length === 0) {
+      return res.status(404).json({ message: "Student not found" });
     }
 
-    // Send response
-    res.status(200).json({
-      attendance: attendanceData,
-      events: eventsData,
+    // Respond with the student's details
+    const student = rows[0];
+    res.json({
+      usn: student.usn,
+      first_name: student.first_name,
+      last_name: student.last_name,
+      branch: student.branch,
+      number_of_backlogs: student.number_of_backlogs,
+      cgpa: student.cgpa,
+      email_id: student.email_id,
+      phone_number: student.phone_number,
+      counselor_name: `${student.faculty_first_name} ${student.faculty_last_name}`,
     });
-  } catch (error) {
-    console.error('Error fetching student profile:', error.message);
-    res.status(500).json({ message: 'Server error' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server error" });
   }
-};
+}
+
+const getStudentCourses = async(req, res) => {
+  const { usn } = req.params;
+
+  const query = `
+    SELECT 
+      c.course_code, 
+      c.course_name, 
+      a.percentage AS attendance, 
+      a.final_cie_marks
+    FROM 
+      attended_by a
+    JOIN 
+      course c ON a.course_code = c.course_code
+    WHERE 
+      a.student_usn = ?;
+  `;
+
+  console.log(usn);
+
+  try {
+    console.log("Fetching courses for USN:", usn);
+    const [results] = await db.promise().execute(query, [usn]);
+    // console.log(results);
+    res.status(200).json(results);
+  } catch (error) {
+    console.error('Error fetching courses:', error);
+    res.status(500).json({ error: 'Failed to fetch course data.' });
+  }
+}
 
 module.exports = {
-  getStudentProfile,
+  studentProfile,
+  getStudentCourses,
 };
+
