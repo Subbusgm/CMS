@@ -18,7 +18,6 @@ CREATE TABLE faculty (
 CREATE TABLE course (
     course_code VARCHAR(20) PRIMARY KEY,
     number_of_credits INT,
-    final_cie_marks DECIMAL(5, 2), -- Added final CIE marks
     course_name VARCHAR(100)
 );
 
@@ -83,6 +82,7 @@ CREATE TABLE attended_by (
     date DATE,
     permission_doc_link VARCHAR(255),
     permission BOOLEAN,
+    final_cie_marks DECIMAL(5, 2), -- Added final CIE marks
     PRIMARY KEY (course_code, student_usn),
     FOREIGN KEY (course_code) REFERENCES course(course_code),
     FOREIGN KEY (student_usn) REFERENCES student(usn)

@@ -1,0 +1,56 @@
+/* Container styles */
+.faculty-container {
+    width: 80%;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    text-align: center;
+  }
+  
+  /* Table styles */
+  .faculty-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-size: 1rem;
+    color: #333;
+  }
+  
+  .faculty-table thead {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  .faculty-table th,
+  .faculty-table td {
+    padding: 12px;
+    text-align: left;
+    border: 1px solid #ddd;
+  }
+  
+  .faculty-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  .faculty-table tbody tr:hover {
+    background-color: #f1f1f1;
+  }
+  
+  /* Utility styles */
+  .loading {
+    font-size: 1.2rem;
+    color: #007bff;
+  }
+  
+  .error {
+    color: red;
+    font-size: 1.2rem;
+  }
+  
+  .no-data {
+    font-size: 1rem;
+    color: #666;
+  }
+  

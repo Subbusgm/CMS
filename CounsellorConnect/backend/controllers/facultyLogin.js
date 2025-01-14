@@ -17,17 +17,17 @@ exports.loginFaculty = async (req, res) => {
 
     // Verify the password with bcrypt
     // const isMatch = await bcrypt.compare(password, user.password);
-    // if (!isMatch) {
-    //   return res.status(401).json({ message: "Invalid credentials" });
-    // }
+    if (user.password != password) {
+      return res.status(401).json({ message: "Invalid credentials" });
+    }
 
     // Generate the JWT token
-    const token = jwt.sign({ usn: user.usn }, process.env.JWT_SECRET, {
+    const token = jwt.sign({ facultyid: user.facultyid }, process.env.JWT_SECRET, {
       expiresIn: "1h",
     });
 
     // Send the response with the token
-    res.status(200).json({ message: "Login successful", token });
+    res.status(200).json({ message: "Login successful", token, facultyid });
   } catch (err) {
     console.error("Error during login:", err);
     res.status(500).json({ message: "Server error" });
