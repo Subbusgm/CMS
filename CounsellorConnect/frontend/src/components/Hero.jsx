@@ -17,8 +17,8 @@ const Hero = () => {
             <a href="student" className="student-button">
               Student
             </a>
-            <a href="counselor" className="counselor-button">
-              Counselor
+            <a href="faculty" className="counselor-button">
+              Faculty
             </a>
           </div>
         </div>
