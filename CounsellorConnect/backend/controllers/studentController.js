@@ -77,8 +77,39 @@ const getStudentCourses = async(req, res) => {
   }
 }
 
+const getStudentActivity = async(req, res) => {
+  const { usn } = req.params;
+
+  const query = `
+    SELECT 
+      e.event_id,
+      a.event_category,
+      a.event_name,
+      a.number_of_points
+    FROM 
+      activity_points a
+    JOIN 
+      earned_by e ON e.event_id = a.event_id
+    WHERE 
+      e.student_usn = ?;
+  `;
+
+  console.log(usn);
+
+  try {
+    console.log("Fetching activity for USN:", usn);
+    const [results] = await db.promise().execute(query, [usn]);
+    // console.log(results);
+    res.status(200).json(results);
+  } catch (error) {
+    console.error('Error fetching courses:', error);
+    res.status(500).json({ error: 'Failed to fetch course data.' });
+  }
+}
+
 module.exports = {
   studentProfile,
   getStudentCourses,
+  getStudentActivity
 };
 
