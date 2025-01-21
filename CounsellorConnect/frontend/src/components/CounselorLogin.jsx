@@ -36,6 +36,7 @@ const CounselorLogin = () => {
         if (response.ok) {
           localStorage.setItem("token", data.token);
           alert("Login successful!");
+          navigate(`/faculty/profile/${data.facultyid}`);
         } else {
           alert(data.message || "Login failed!");
         }

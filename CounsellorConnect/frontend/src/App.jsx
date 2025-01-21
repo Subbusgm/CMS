@@ -10,7 +10,7 @@ import ActivityPoints from "./components/ActivityPoints";
 import FacultyLogin from "./components/FacultyLogin";
 import FacultyProfile from "./components/FacultyProfile";
 import FacultyCounselees from "./components/FacultyCounselees";
-
+import FileUpload from "./components/uploadFile";
 const App = () => {
   return (
     <Router>
@@ -26,6 +26,7 @@ const App = () => {
         <Route path="/student/:usn/events" element={<ActivityPoints />} />
         <Route path="/faculty/profile/:facultyId" element={<FacultyProfile />} />
         <Route path="/faculty/:facultyId/counselees" element={<FacultyCounselees />} />
+        <Route path="/upload" element={<FileUpload />} />
       </Routes>
     </Router>
   );

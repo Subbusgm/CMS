@@ -1,0 +1,75 @@
+/* General styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f9;
+}
+
+.academic-container {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.academic-title {
+  text-align: center;
+  color: #333;
+  margin-bottom: 1.5rem;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+/* Table styles */
+.table-wrapper {
+  overflow-x: auto; /* Ensures responsiveness */
+}
+
+.academic-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0 auto;
+  font-size: 1rem;
+  color: #333;
+}
+
+.academic-table thead {
+  background-color: #007bff;
+  color: white;
+}
+
+.academic-table th,
+.academic-table td {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  border: 1px solid #ddd;
+}
+
+.academic-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.academic-table tr:hover {
+  background-color: #f1f1f1;
+}
+
+.academic-table thead tr:hover {
+  background-color: inherit; /* Keeps the original header color */
+}
+
+/* Error and no-data styles */
+.error, .no-data {
+  text-align: center;
+  color: #ff0000;
+  font-size: 1.2rem;
+  margin-top: 1rem;
+}
+
+.loading {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #007bff;
+}
