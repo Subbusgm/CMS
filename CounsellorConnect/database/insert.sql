@@ -1,125 +1,105 @@
--- Populate Faculty Table
-INSERT INTO faculty (department, qualification, email_id, phone_number, first_name, last_name, number_of_counselees, password)
-VALUES
-('Computer Science', 'PhD', 'john.doe@example.com', '9876543210', 'John', 'Doe', 5, 'password123'),
-('Information Science', 'MTech', 'jane.smith@example.com', '9876543211', 'Jane', 'Smith', 4, 'password123'),
-('Mechanical Engineering', 'PhD', 'david.johnson@example.com', '9876543212', 'David', 'Johnson', 6, 'password123'),
-('Civil Engineering', 'MTech', 'emily.davis@example.com', '9876543213', 'Emily', 'Davis', 3, 'password123'),
-('Electrical Engineering', 'PhD', 'michael.wilson@example.com', '9876543214', 'Michael', 'Wilson', 7, 'password123'),
-('Electronics', 'MTech', 'sarah.martin@example.com', '9876543215', 'Sarah', 'Martin', 2, 'password123'),
-('Chemical Engineering', 'PhD', 'robert.lee@example.com', '9876543216', 'Robert', 'Lee', 4, 'password123'),
-('Biotechnology', 'MTech', 'linda.taylor@example.com', '9876543217', 'Linda', 'Taylor', 5, 'password123'),
-('Aerospace', 'PhD', 'mark.white@example.com', '9876543218', 'Mark', 'White', 3, 'password123'),
-('Instrumentation', 'MTech', 'nancy.harris@example.com', '9876543219', 'Nancy', 'Harris', 6, 'password123');
+-- Faculty Table
+INSERT INTO faculty (department, qualification, email_id, phone_number, first_name, last_name, number_of_counselees, password) 
+VALUES 
+('Computer Science', 'MSc', 'cs1@university.com', '1234567890', 'Alice', 'Smith', 0, 'password123'),
+('Electrical', 'PhD', 'ee1@university.com', '2345678901', 'Bob', 'Johnson', 0, 'password123'),
+('Mechanical', 'MTech', 'me1@university.com', '3456789012', 'Charlie', 'Brown', 0, 'password123'),
+('Civil', 'BTech', 'ce1@university.com', '4567890123', 'David', 'Lee', 0, 'password123'),
+('Electronics', 'MSc', 'ec1@university.com', '5678901234', 'Eva', 'White', 0, 'password123');
 
--- Populate Course Table
-INSERT INTO course (course_code, number_of_credits, final_cie_marks, course_name)
-VALUES
-('CS101', 4, 92.5, 'Data Structures'),
-('CS102', 3, 88.0, 'Algorithms'),
-('ME101', 4, 85.0, 'Thermodynamics'),
-('EE101', 3, 78.5, 'Circuit Analysis'),
-('IS101', 4, 80.0, 'Database Management'),
-('BT101', 3, 90.0, 'Genetics'),
-('CH101', 4, 87.0, 'Organic Chemistry'),
-('AE101', 3, 82.0, 'Aerodynamics'),
-('EC101', 4, 75.5, 'Microcontrollers'),
-('CE101', 3, 83.0, 'Structural Engineering');
+-- Course Table
+INSERT INTO course (course_code, number_of_credits, course_name) 
+VALUES 
+('CS101', 3, 'Introduction to Computer Science'),
+('EE101', 4, 'Introduction to Electrical Engineering'),
+('ME101', 3, 'Introduction to Mechanical Engineering'),
+('CE101', 3, 'Introduction to Civil Engineering'),
+('EC101', 3, 'Introduction to Electronics');
 
--- Populate Handles Table
-INSERT INTO handles (faculty_id, course_code)
-VALUES
+-- Handles Table
+INSERT INTO handles (faculty_id, course_code) 
+VALUES 
 (1, 'CS101'),
-(1, 'CS102'),
-(2, 'IS101'),
+(2, 'EE101'),
 (3, 'ME101'),
 (4, 'CE101'),
-(5, 'EE101'),
-(6, 'EC101'),
-(7, 'CH101'),
-(8, 'BT101'),
-(9, 'AE101');
+(5, 'EC101');
 
--- Populate Student Table
-INSERT INTO student (usn, branch, first_name, last_name, number_of_backlogs, phone_number, cgpa, email_id, faculty_id, password)
-VALUES
-('1RV20CS001', 'Computer Science', 'Alice', 'Brown', 0, '9876500001', 9.5, 'alice.brown@example.com', 1, 'password123'),
-('1RV20CS002', 'Computer Science', 'Bob', 'Johnson', 1, '9876500002', 8.2, 'bob.johnson@example.com', 1, 'password123'),
-('1RV20IS001', 'Information Science', 'Charlie', 'Davis', 0, '9876500003', 9.0, 'charlie.davis@example.com', 2, 'password123'),
-('1RV20ME001', 'Mechanical', 'David', 'Miller', 2, '9876500004', 7.8, 'david.miller@example.com', 3, 'password123'),
-('1RV20CE001', 'Civil', 'Eve', 'Wilson', 1, '9876500005', 8.5, 'eve.wilson@example.com', 4, 'password123'),
-('1RV20EE001', 'Electrical', 'Frank', 'Taylor', 0, '9876500006', 9.1, 'frank.taylor@example.com', 5, 'password123'),
-('1RV20EC001', 'Electronics', 'Grace', 'White', 1, '9876500007', 8.0, 'grace.white@example.com', 6, 'password123'),
-('1RV20CH001', 'Chemical', 'Hank', 'Brown', 3, '9876500008', 7.5, 'hank.brown@example.com', 7, 'password123'),
-('1RV20BT001', 'Biotechnology', 'Ivy', 'Green', 0, '9876500009', 9.2, 'ivy.green@example.com', 8, 'password123'),
-('1RV20AE001', 'Aerospace', 'Jack', 'Black', 2, '9876500010', 8.7, 'jack.black@example.com', 9, 'password123');
+-- Student Table
+INSERT INTO student (usn, branch, first_name, last_name, number_of_backlogs, phone_number, cgpa, email_id, faculty_id, password) 
+VALUES 
+('CS10120', 'Computer Science', 'David', 'Lee', 0, '4567890123', 8.5, 'david.lee@university.com', 1, 'password123'),
+('CS10121', 'Computer Science', 'Eva', 'White', 1, '5678901234', 7.2, 'eva.white@university.com', 1, 'password123'),
+('EE10120', 'Electrical', 'Frank', 'Davis', 0, '6789012345', 8.0, 'frank.davis@university.com', 2, 'password123'),
+('EE10121', 'Electrical', 'Grace', 'Miller', 2, '7890123456', 6.8, 'grace.miller@university.com', 2, 'password123'),
+('ME10120', 'Mechanical', 'Henry', 'Wilson', 0, '8901234567', 8.3, 'henry.wilson@university.com', 3, 'password123'),
+('ME10121', 'Mechanical', 'Ivy', 'Moore', 1, '9012345678', 7.4, 'ivy.moore@university.com', 3, 'password123'),
+('CE10120', 'Civil', 'John', 'Taylor', 0, '9123456789', 8.7, 'john.taylor@university.com', 4, 'password123'),
+('CE10121', 'Civil', 'Kathy', 'Anderson', 0, '9234567890', 7.9, 'kathy.anderson@university.com', 4, 'password123'),
+('EC10120', 'Electronics', 'Louis', 'Jackson', 0, '9345678901', 8.1, 'louis.jackson@university.com', 5, 'password123'),
+('EC10121', 'Electronics', 'Mia', 'Harris', 0, '9456789012', 7.5, 'mia.harris@university.com', 5, 'password123');
 
--- Populate Guardian Table
-INSERT INTO guardian (student_usn, phone_number, guardian_name, relationship, email_id)
-VALUES
-('1RV20CS001', '9876510001', 'Mary Brown', 'Mother', 'mary.brown@example.com'),
-('1RV20CS002', '9876510002', 'James Johnson', 'Father', 'james.johnson@example.com'),
-('1RV20IS001', '9876510003', 'Patricia Davis', 'Mother', 'patricia.davis@example.com'),
-('1RV20ME001', '9876510004', 'Robert Miller', 'Father', 'robert.miller@example.com'),
-('1RV20CE001', '9876510005', 'Jennifer Wilson', 'Mother', 'jennifer.wilson@example.com'),
-('1RV20EE001', '9876510006', 'Michael Taylor', 'Father', 'michael.taylor@example.com'),
-('1RV20EC001', '9876510007', 'Linda White', 'Mother', 'linda.white@example.com'),
-('1RV20CH001', '9876510008', 'William Brown', 'Father', 'william.brown@example.com'),
-('1RV20BT001', '9876510009', 'Barbara Green', 'Mother', 'barbara.green@example.com'),
-('1RV20AE001', '9876510010', 'Elizabeth Black', 'Mother', 'elizabeth.black@example.com');
+-- Guardian Table
+INSERT INTO guardian (student_usn, phone_number, guardian_name, relationship, email_id) 
+VALUES 
+('CS10120', '1112233445', 'John Lee', 'Father', 'john.lee@guardian.com'),
+('CS10121', '1122334456', 'Sarah White', 'Mother', 'sarah.white@guardian.com'),
+('EE10120', '1233454567', 'Peter Davis', 'Father', 'peter.davis@guardian.com'),
+('EE10121', '1244555678', 'Linda Miller', 'Mother', 'linda.miller@guardian.com'),
+('ME10120', '1356787890', 'George Wilson', 'Father', 'george.wilson@guardian.com'),
+('ME10121', '1367898901', 'Helen Moore', 'Mother', 'helen.moore@guardian.com'),
+('CE10120', '1478901234', 'Samuel Taylor', 'Father', 'samuel.taylor@guardian.com'),
+('CE10121', '1589012345', 'Rachel Anderson', 'Mother', 'rachel.anderson@guardian.com'),
+('EC10120', '1690123456', 'David Jackson', 'Father', 'david.jackson@guardian.com'),
+('EC10121', '1712345678', 'Olivia Harris', 'Mother', 'olivia.harris@guardian.com');
 
--- Populate Activity Points Table
-INSERT INTO activity_points (event_category, event_name, number_of_points, doc_link)
-VALUES
-('Sports', 'Cricket', 10, 'link_to_cricket_doc'),
-('Cultural', 'Dance', 8, 'link_to_dance_doc'),
-('Technical', 'Hackathon', 15, 'link_to_hackathon_doc'),
-('Social', 'Blood Donation', 5, 'link_to_blood_donation_doc'),
-('Sports', 'Football', 10, 'link_to_football_doc'),
-('Cultural', 'Singing', 8, 'link_to_singing_doc'),
-('Technical', 'Coding Contest', 12, 'link_to_coding_doc'),
-('Social', 'Tree Plantation', 6, 'link_to_tree_doc'),
-('Sports', 'Basketball', 10, 'link_to_basketball_doc'),
-('Technical', 'AI Workshop', 20, 'link_to_ai_doc');
+-- Activity Points Table
+INSERT INTO activity_points (event_category, event_name, number_of_points, doc_link) 
+VALUES 
+('Sports', 'Football Tournament', 10, 'link_to_football_doc'),
+('Cultural', 'Drama Performance', 15, 'link_to_drama_doc'),
+('Academics', 'Research Paper Publication', 20, 'link_to_paper_doc'),
+('Sports', 'Basketball Tournament', 12, 'link_to_basketball_doc'),
+('Cultural', 'Singing Competition', 10, 'link_to_singing_doc');
 
--- Populate Earned By Table
-INSERT INTO earned_by (event_id, student_usn)
-VALUES
-(1, '1RV20CS001'),
-(2, '1RV20CS002'),
-(3, '1RV20IS001'),
-(4, '1RV20ME001'),
-(5, '1RV20CE001'),
-(6, '1RV20EE001'),
-(7, '1RV20EC001'),
-(8, '1RV20CH001'),
-(9, '1RV20BT001'),
-(10, '1RV20AE001');
+-- Earned By Table
+INSERT INTO earned_by (event_id, student_usn) 
+VALUES 
+(1, 'CS10120'),
+(2, 'CS10121'),
+(3, 'EE10120'),
+(4, 'EE10121'),
+(5, 'ME10120'),
+(1, 'ME10121'),
+(2, 'CE10120'),
+(3, 'CE10121'),
+(4, 'EC10120'),
+(5, 'EC10121');
 
--- Populate Attendance Table
-INSERT INTO attended_by (course_code, student_usn, percentage, date, permission_doc_link, permission)
-VALUES
-('CS101', '1RV20CS001', 95.5, '2024-01-10', 'link_to_permission_doc1', TRUE),
-('CS102', '1RV20CS002', 88.0, '2024-01-11', 'link_to_permission_doc2', FALSE),
-('IS101', '1RV20IS001', 92.0, '2024-01-12', 'link_to_permission_doc3', TRUE),
-('ME101', '1RV20ME001', 85.0, '2024-01-13', 'link_to_permission_doc4', FALSE),
-('CE101', '1RV20CE001', 89.0, '2024-01-14', 'link_to_permission_doc5', TRUE),
-('EE101', '1RV20EE001', 93.5, '2024-01-15', 'link_to_permission_doc6', TRUE),
-('EC101', '1RV20EC001', 80.0, '2024-01-16', 'link_to_permission_doc7', FALSE),
-('CH101', '1RV20CH001', 75.0, '2024-01-17', 'link_to_permission_doc8', TRUE),
-('BT101', '1RV20BT001', 98.0, '2024-01-18', 'link_to_permission_doc9', TRUE),
-('AE101', '1RV20AE001', 85.5, '2024-01-19', 'link_to_permission_doc10', TRUE);
+-- Attendance Table
+INSERT INTO attended_by (course_code, student_usn, percentage, date, permission_doc_link, permission, final_cie_marks) 
+VALUES 
+('CS101', 'CS10120', 95.0, '2025-01-10', 'link_to_permission_doc', true, 80.0),
+('EE101', 'EE10120', 90.0, '2025-01-10', 'link_to_permission_doc', true, 75.0),
+('ME101', 'ME10120', 85.0, '2025-01-10', 'link_to_permission_doc', true, 70.0),
+('CE101', 'CE10120', 92.0, '2025-01-10', 'link_to_permission_doc', true, 78.0),
+('EC101', 'EC10120', 88.0, '2025-01-10', 'link_to_permission_doc', true, 72.0),
+('CS101', 'CS10121', 89.0, '2025-01-11', 'link_to_permission_doc', false, 74.0),
+('EE101', 'EE10121', 91.0, '2025-01-11', 'link_to_permission_doc', true, 77.0),
+('ME101', 'ME10121', 84.0, '2025-01-11', 'link_to_permission_doc', false, 68.0),
+('CE101', 'CE10121', 95.0, '2025-01-11', 'link_to_permission_doc', true, 82.0),
+('EC101', 'EC10121', 90.0, '2025-01-11', 'link_to_permission_doc', true, 75.0);
 
--- Populate Meeting Table
-INSERT INTO meeting (purpose, duration, date, student_usn, faculty_id)
-VALUES
-('Counseling', '00:30:00', '2024-01-20', '1RV20CS001', 1),
-('Feedback', '00:20:00', '2024-01-21', '1RV20CS002', 1),
-('Project Discussion', '01:00:00', '2024-01-22', '1RV20IS001', 2),
-('Academic Advice', '00:45:00', '2024-01-23', '1RV20ME001', 3),
-('Career Guidance', '00:40:00', '2024-01-24', '1RV20CE001', 4),
-('Exam Preparation', '00:30:00', '2024-01-25', '1RV20EE001', 5),
-('Internship Discussion', '00:50:00', '2024-01-26', '1RV20EC001', 6),
-('Project Guidance', '01:10:00', '2024-01-27', '1RV20CH001', 7),
-('Research Advice', '00:35:00', '2024-01-28', '1RV20BT001', 8),
-('Personal Counseling', '00:25:00', '2024-01-29', '1RV20AE001', 9);
+-- Meeting Table
+INSERT INTO meeting (purpose, duration, date, student_usn, faculty_id) 
+VALUES 
+('Career Guidance', '00:30:00', '2025-01-10', 'CS10120', 1),
+('Research Discussion', '00:45:00', '2025-01-11', 'EE10120', 2),
+('Project Review', '01:00:00', '2025-01-12', 'ME10120', 3),
+('Career Guidance', '00:30:00', '2025-01-12', 'CE10120', 4),
+('Research Discussion', '00:45:00', '2025-01-13', 'EC10120', 5),
+('Project Review', '00:45:00', '2025-01-13', 'CS10121', 1),
+('Career Guidance', '00:30:00', '2025-01-14', 'EE10121', 2),
+('Research Discussion', '00:45:00', '2025-01-14', 'ME10121', 3),
+('Project Review', '01:00:00', '2025-01-15', 'CE10121', 4),
+('Career Guidance', '00:30:00', '2025-01-15', 'EC10121', 5);
