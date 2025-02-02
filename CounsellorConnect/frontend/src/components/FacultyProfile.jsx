@@ -5,7 +5,7 @@ import Header from "./Header"; // Assuming there's a common Header component
 import "./FacultyProfile.css"; // Assuming a CSS file for styling
 
 const FacultyProfile = () => {
-  const { facultyId } = useParams();
+  // const { facultyId } = useParams();
   const [faculty, setFaculty] = useState(null);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -14,15 +14,21 @@ const FacultyProfile = () => {
   useEffect(() => {
     const fetchFacultyDetails = async () => {
       try {
-        const response = await axios.get(
-          `http://localhost:5000/api/faculty/${facultyId}`,
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`, // Authentication token
-            },
-          }
-        );
-        setFaculty(response.data);
+        // const response = await axios.get(
+        //   `http://localhost:5000/api/faculty/${facultyId}`,
+        //   {
+        //     headers: {
+        //       Authorization: `Bearer ${localStorage.getItem("token")}`, // Authentication token
+        //     },
+        //   }
+        // );
+        const response = await fetch(`http://localhost:5000/api/faculty/profile`, {
+          method: "GET",
+          credentials: "include",
+        });
+
+        const data = await response.json();
+        setFaculty(data);
       } catch (err) {
         setError("Failed to fetch faculty details.");
       } finally {
@@ -31,7 +37,7 @@ const FacultyProfile = () => {
     };
 
     fetchFacultyDetails();
-  }, [facultyId]);
+  }, []);
 
   if (isLoading) return <div className="loading">Loading...</div>;
   if (error) return <div className="error">{error}</div>;
@@ -53,7 +59,7 @@ const FacultyProfile = () => {
           <div className="profile-buttons">
             <button
               className="button primary"
-              onClick={() => navigate(`/faculty/${facultyId}/counselees`)}
+              onClick={() => navigate(`/faculty/counselees`)}
             >
               Monitor Counselees
             </button>

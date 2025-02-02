@@ -5,16 +5,22 @@ import Header from "./Header";
 import "./FacultyCounselees.css"; // Import the CSS file for styling
 
 const FacultyCounselees = () => {
-  const { facultyId } = useParams(); // Extract facultyId from URL
+  // const { facultyId } = useParams(); // Extract facultyId from URL
   const [counselees, setCounselees] = useState([]);
+  const [academicPerformance, setAcademicPerformance] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchCounselees = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/faculty/${facultyId}/counselees`);
-        setCounselees(response.data);
+        // const response = await axios.get(`http://localhost:5000/api/faculty/${facultyId}/counselees`);
+        const response = await fetch(`http://localhost:5000/api/faculty/counselees`, {
+          method: "GET",
+          credentials: "include",
+        });
+        const data = await response.json();
+        setCounselees(data);
       } catch (err) {
         setError("Failed to fetch counselees.");
       } finally {
@@ -22,8 +28,29 @@ const FacultyCounselees = () => {
       }
     };
 
-    fetchCounselees();
-  }, [facultyId]);
+    const fetchAcademicPerformance = async () => {
+      try {
+        const response = await fetch(`http://localhost:5000/api/faculty/counselees/academics`, {
+          method: "GET",
+          credentials: "include",
+        });
+        const data = await response.json();
+        setAcademicPerformance(data);
+      } catch (err) {
+        setError("Failed to fetch academic performance.");
+      }
+    };
+
+    // fetchCounselees();
+
+    const fetchData = async () => {
+      await fetchCounselees();
+      await fetchAcademicPerformance();
+      setLoading(false);
+    };
+    fetchData();
+
+  }, []);
 
   if (loading) return <div className="loading">Loading...</div>;
   if (error) return <div className="error">{error}</div>;
@@ -34,7 +61,7 @@ const FacultyCounselees = () => {
       <div className="faculty-container">
         <h2>Faculty Counselees</h2>
         {counselees.length > 0 ? (
-          <table className="faculty-table">
+          <table className="faculty-table" style={{ marginBottom: "30px" }}>
             <thead>
               <tr>
                 <th>USN</th>
@@ -58,6 +85,37 @@ const FacultyCounselees = () => {
           </table>
         ) : (
           <div className="no-data">No counselee data available for this faculty.</div>
+        )}
+
+        {/* Academic Performance Table */}
+        <h2>Academic Performance of Counselees</h2>
+        {academicPerformance.length > 0 ? (
+          <table className="faculty-table">
+            <thead>
+              <tr>
+                <th>USN</th>
+                <th>Name</th>
+                <th>Course Code</th>
+                <th>Course Name</th>
+                <th>Attendance (%)</th>
+                <th>Final CIE Marks</th>
+              </tr>
+            </thead>
+            <tbody>
+              {academicPerformance.map((record, index) => (
+                <tr key={index}>
+                  <td>{record.usn}</td>
+                  <td>{`${record.first_name} ${record.last_name}`}</td>
+                  <td>{record.course_code}</td>
+                  <td>{record.course_name}</td>
+                  <td>{record.attendance}%</td>
+                  <td>{record.final_cie_marks}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        ) : (
+          <div className="no-data">No academic performance data available.</div>
         )}
       </div>
     </div>

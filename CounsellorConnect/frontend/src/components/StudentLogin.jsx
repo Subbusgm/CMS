@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Header from "./Header";
@@ -30,14 +31,30 @@ const StudentLogin = () => {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(formData),
+          // withCredentials : true
+          credentials: "include",
         });
 
+        // const response = await axios({
+        //   method:'post',
+        //   url : 'http://localhost:5000/api/student/login',
+        //   data:{
+
+        //   }
+        // })
+
         const data = await response.json();
+        console.log(data.token);
+        
 
         if (response.ok) {
           localStorage.setItem("token", data.token); // Store token in localStorage
+          // const x = localStorage.getItem("token");
+          // console.log(x);
+          
+          
           alert("Login successful!");
-          navigate(`/student/profile/${data.usn}`);
+          navigate(`/student/profile`);  
         } else {
           alert(data.message || "Login failed!");
         }

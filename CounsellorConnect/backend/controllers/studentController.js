@@ -3,11 +3,30 @@ const jwt = require("jsonwebtoken");
 const { validationResult } = require("express-validator");
 const db = require('../config/db');
 
-const studentProfile = async (req, res) => {
-  const { usn } = req.params;
+const studentLogout=(req,res)=>{
+  try{
+      return res.status(200).cookie("token","",{maxAge:0}).json({
+          message:"Logged Out Successfully.",
+          success:true
+      })
+  }catch (error){
+      console.log(error);
+      return res.status(500).json({
+          success:false,
+          message:"Failed to logout"
+      })
+  }
+}
+
+const studentProfile = async (req, res) => {  
 
   try {
     // Query to fetch student details along with the assigned faculty's name
+    const token = req.cookies.token||""
+
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const usn = decoded.userId
+
     const [rows] = await db.promise().query(
       `
       SELECT 
@@ -48,7 +67,12 @@ const studentProfile = async (req, res) => {
 }
 
 const getStudentCourses = async(req, res) => {
-  const { usn } = req.params;
+  // const { usn } = req.params;
+
+  const token = req.cookies.token||""
+
+  const decoded = jwt.verify(token, process.env.JWT_SECRET);
+  const usn = decoded.userId
 
   const query = `
     SELECT 
@@ -78,7 +102,11 @@ const getStudentCourses = async(req, res) => {
 }
 
 const getStudentActivity = async(req, res) => {
-  const { usn } = req.params;
+
+  const token = req.cookies.token||""
+
+  const decoded = jwt.verify(token, process.env.JWT_SECRET);
+  const usn = decoded.userId
 
   const query = `
     SELECT 
@@ -108,6 +136,7 @@ const getStudentActivity = async(req, res) => {
 }
 
 module.exports = {
+  studentLogout,
   studentProfile,
   getStudentCourses,
   getStudentActivity

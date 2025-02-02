@@ -29,6 +29,7 @@ const FacultyLogin = () => {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(formData),
+          credentials: "include",
         });
 
         const data = await response.json();
@@ -36,7 +37,7 @@ const FacultyLogin = () => {
         if (response.ok) {
           localStorage.setItem("token", data.token);
           alert("Login successful!");
-          navigate(`/faculty/profile/${data.facultyid}`);
+          navigate(`/faculty/profile`);
         } else {
           alert(data.message || "Login failed!");
         }
