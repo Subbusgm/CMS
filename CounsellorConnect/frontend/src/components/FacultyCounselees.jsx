@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import axios from "axios";
-import Header from "./Header";
 import "./FacultyCounselees.css"; // Import the CSS file for styling
+import Header2 from "./Header2";
 
 const FacultyCounselees = () => {
   // const { facultyId } = useParams(); // Extract facultyId from URL
@@ -57,7 +55,7 @@ const FacultyCounselees = () => {
 
   return (
     <div>
-      <Header />
+      <Header2 />
       <div className="faculty-container">
         <h2>Faculty Counselees</h2>
         {counselees.length > 0 ? (

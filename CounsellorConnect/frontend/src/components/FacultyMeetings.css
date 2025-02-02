@@ -1,0 +1,148 @@
+/* Body */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f6f9;
+  }
+  
+  /* Container for Faculty Meetings */
+  .faculty-meetings-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    margin-top: 30px;
+  }
+  
+  /* Title */
+  .faculty-meetings-title {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  /* Table styling */
+  .meetings-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 30px;
+  }
+  
+  .meetings-table th,
+  .meetings-table td {
+    padding: 12px 15px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .meetings-table th {
+    background-color: #f1f1f1;
+    color: #333;
+  }
+  
+  .meetings-table td {
+    background-color: #fff;
+    color: #555;
+  }
+  
+  /* Button Styling */
+  .button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    transition: background-color 0.3s ease;
+  }
+  
+  .button.primary:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Loading and Error Messages */
+  .loading,
+  .error {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #f44336;
+    padding: 20px;
+  }
+  
+  /* Media Queries for Responsive Design */
+  @media screen and (max-width: 768px) {
+    .faculty-meetings-container {
+      padding: 10px;
+    }
+  
+    .meetings-table {
+      font-size: 0.9rem;
+    }
+  
+    .faculty-meetings-title {
+      font-size: 1.5rem;
+    }
+  }
+  
+
+/* Add this to your FacultyMeetings.css */
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+  }
+  
+  .modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    max-width: 100%;
+  }
+  
+  button {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  label {
+    margin-bottom: 5px;
+  }
+  
+  input[type="date"],
+  input[type="time"],
+  input[type="text"] {
+    margin-bottom: 10px;
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  

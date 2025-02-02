@@ -5,14 +5,9 @@ const isAuthenticated = (roles = []) => {
     return async (req, res, next) => {
       try {
         const token = req.cookies.token;
-        console.log("token is ", token)
-
-        // const token = req.cookies.token || req.headers.authorization?.split(" ")[1]; 
-
-        console.log(req.origin);
+        console.log(token);
         
-
-        // console.log(token.length);
+        // console.log(req.origin);
         
 
         if(token==undefined)console.log('viji')
