@@ -43,6 +43,7 @@ const StudentMeeting = () => {
       return;
     }
     updateMeetingStatus(meetingId, 'declined', reason);
+    setSelectedMeeting(null);
   };
 
   const updateMeetingStatus = async (meetingId, status, reason = '') => {

@@ -143,7 +143,7 @@ const getStudentMeetings = async(req, res) => {
 
   const query = `
     SELECT m.meeting_id, f.first_name AS faculty_name, m.date, m.time, m.duration
-    FROM meeting m
+    FROM meeting2 m
     JOIN faculty f ON m.faculty_id = f.faculty_id
     WHERE m.student_usn = ? AND m.date >= CURDATE() AND m.status = 'PENDING'
     ORDER BY m.date ASC;
@@ -170,7 +170,7 @@ const respondMeeting = async(req, res) => {
 
   const { meetingId, status, reason } = req.body;
   const query = `
-    UPDATE meeting
+    UPDATE meeting2
     SET status = ?, response_reason = ?
     WHERE meeting_id = ?
   `;

@@ -202,7 +202,7 @@ const scheduleMeeting = async (req, res) =>{
     const faculty_id = decoded.userId
 
     const [result] = await db.promise().execute(
-      'INSERT INTO meeting (duration, date, time, student_usn, faculty_id) VALUES (?, ?, ?, ?, ?)', 
+      'INSERT INTO meeting2 (duration, date, time, student_usn, faculty_id) VALUES (?, ?, ?, ?, ?)', 
       [duration, date, time, student_usn, faculty_id]
     );
 
