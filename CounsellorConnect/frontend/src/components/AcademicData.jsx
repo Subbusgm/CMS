@@ -5,7 +5,7 @@ import Header from "./Header";
 import "./AcademicData.css"; // Assuming a CSS file for styling
 
 const AcademicData = () => {
-  const { usn } = useParams();
+  // const { usn } = useParams();
   const [courses, setCourses] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -15,10 +15,22 @@ const AcademicData = () => {
     const fetchCourses = async () => {
       try {
         setLoading(true);
-        const response = await axios.get(
-          `http://localhost:5000/api/student/${usn}/courses`
-        );
-        setCourses(response.data);
+        // const response = await axios.get(
+        //   `http://localhost:5000/api/student/${usn}/courses`
+        // );
+        const response = await fetch(`http://localhost:5000/api/student/courses`, {
+          method: "GET",
+          credentials: "include",
+          // headers: {
+          //   Authorization: `Bearer ${localStorage.getItem("token")}`, // Pass token for authentication
+          // },
+        });
+        // console.log(response.data);
+
+        const data = await response.json();  
+        console.log(data);
+              
+        setCourses(data);
       } catch (err) {
         setError("Failed to fetch academic data.");
       } finally {
@@ -27,7 +39,7 @@ const AcademicData = () => {
     };
 
     fetchCourses();
-  }, [usn]);
+  }, []);
 
   if (loading) return <div className="loading">Loading...</div>;
   if (error) return <div className="error">{error}</div>;

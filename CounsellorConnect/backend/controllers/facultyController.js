@@ -4,12 +4,17 @@ const { validationResult } = require("express-validator");
 const db = require('../config/db');
 
 const facultyProfile = async (req, res) => {
-    const { facultyId } = req.params; // Get faculty ID from request parameters
+    // const { facultyId } = req.params; // Get faculty ID from request parameters
     // console.log(facultyId);
     
   
     try {
       // Query to fetch faculty details
+      const token = req.cookies.token||""
+      
+      const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      const faculty_id = decoded.userId
+
       const [facultyDetails] = await db.promise().query(
         `
         SELECT 
@@ -25,7 +30,7 @@ const facultyProfile = async (req, res) => {
         WHERE 
           f.faculty_id = ?
         `,
-        [facultyId]
+        [faculty_id]
       );
   
       if (facultyDetails.length === 0) {
@@ -45,7 +50,7 @@ const facultyProfile = async (req, res) => {
         WHERE 
           h.faculty_id = ?
         `,
-        [facultyId]
+        [faculty_id]
       );
   
       // Combine results and respond
@@ -70,9 +75,14 @@ const facultyProfile = async (req, res) => {
   
 
   const getCounseleesActivityPoints = async (req, res) => {
-    const { facultyId } = req.params;
+    // const { facultyId } = req.params;
   
     try {
+      const token = req.cookies.token||""
+      
+      const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      const faculty_id = decoded.userId
+
       // SQL query to fetch counselee details and total activity points
       const [rows] = await db.promise().query(
         `
@@ -94,7 +104,7 @@ const facultyProfile = async (req, res) => {
         GROUP BY 
           s.usn, s.first_name, s.last_name, s.phone_number, s.email_id
         `,
-        [facultyId]
+        [faculty_id]
       );
   
       if (rows.length === 0) {
@@ -107,9 +117,52 @@ const facultyProfile = async (req, res) => {
       res.status(500).json({ message: "Server error" });
     }
   };
+
+  const getCounseleesAcademicPerformance = async (req, res) => {
+    
+    try {
+      const token = req.cookies.token||""
+      
+      const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      const faculty_id = decoded.userId
+
+      // SQL query to fetch counselee details and their academic performance
+      const query = `
+        SELECT 
+          s.usn, 
+          s.first_name, 
+          s.last_name, 
+          c.course_code, 
+          c.course_name, 
+          a.percentage AS attendance, 
+          a.final_cie_marks
+        FROM 
+          student s
+        JOIN 
+          attended_by a ON s.usn = a.student_usn
+        JOIN 
+          course c ON a.course_code = c.course_code
+        WHERE 
+          s.faculty_id = ?
+      `;
+  
+      const [results] = await db.promise().execute(query, [faculty_id]);
+  
+      if (results.length === 0) {
+        return res.status(404).json({ message: "No counselee academic performance found for this faculty." });
+      }
+  
+      res.json(results);
+    } catch (err) {
+      console.error("Error fetching counselee academic performance:", err);
+      res.status(500).json({ message: "Server error" });
+    }
+  };
+  
   
 module.exports = { 
     facultyProfile,
-    getCounseleesActivityPoints
+    getCounseleesActivityPoints,
+    getCounseleesAcademicPerformance
 };
   

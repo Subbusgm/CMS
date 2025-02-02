@@ -5,7 +5,7 @@ import Header from "./Header";
 import "./ActivityPoints.css"; // Import the CSS file for styling
 
 const StudentActivity = () => {
-  const { usn } = useParams();
+  // const { usn } = useParams();
   const [activities, setActivities] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -14,8 +14,15 @@ const StudentActivity = () => {
     const fetchActivities = async () => {
       try {
         setLoading(true);
-        const response = await axios.get(`http://localhost:5000/api/student/${usn}/events`);
-        setActivities(response.data);
+        // const response = await axios.get(`http://localhost:5000/api/student/events`);
+        const response = await fetch(`http://localhost:5000/api/student/events`, {
+          method: "GET",
+          credentials: "include",
+        });
+        const data = await response.json();
+        console.log(data);
+        
+        setActivities(data);
       } catch (err) {
         setError("Failed to fetch activity data.");
       } finally {
@@ -24,7 +31,7 @@ const StudentActivity = () => {
     };
 
     fetchActivities();
-  }, [usn]);
+  }, []);
 
   if (loading) return <div className="loading">Loading...</div>;
   if (error) return <div className="error">{error}</div>;

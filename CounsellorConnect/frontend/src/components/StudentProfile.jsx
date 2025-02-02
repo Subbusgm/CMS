@@ -1,25 +1,43 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Header from "./Header";
 import "./StudentProfile.css"; // Assuming you create a CSS file for styling.
 
 const StudentProfile = () => {
-  const { usn } = useParams(); // Get USN from URL params
+  // const { usn } = useParams(); // Get USN from URL params
   const navigate = useNavigate();
   const [studentData, setStudentData] = useState(null);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
+  // console.log("Profile");
+  
+
   useEffect(() => {
     const fetchStudentData = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/student/${usn}`, {
+        const response = await fetch(`http://localhost:5000/api/student/profile`, {
           method: "GET",
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`, // Pass token for authentication
-          },
+          credentials: "include",
+          // headers: {
+          //   Authorization: `Bearer ${localStorage.getItem("token")}`, // Pass token for authentication
+          // },
         });
 
+        // const x = localStorage.getItem("token");
+        // console.log(x); 
+
+        // const response = await axios.get(`http://localhost:5000/api/student/profile`, {
+        //   withCredentials: true,
+        //   // headers: {
+        //   //   Authorization: `Bearer ${x}`,  // Send token in Authorization header
+        //   // },
+        // });
+
+        // console.log("Profile");
+        // console.log(response);
+  
         if (!response.ok) {
           throw new Error("Failed to fetch student data.");
         }
@@ -34,7 +52,7 @@ const StudentProfile = () => {
     };
 
     fetchStudentData();
-  }, [usn]);
+  }, []);
 
   if (isLoading) return <div className="loading">Loading...</div>;
   if (error) return <div className="error">{error}</div>;
@@ -57,13 +75,13 @@ const StudentProfile = () => {
           <div className="profile-buttons">
             <button
               className="button primary"
-              onClick={() => navigate(`/student/${usn}/courses`)}
+              onClick={() => navigate(`/student/courses`)}
             >
               View Academic Data
             </button>
             <button
               className="button secondary"
-              onClick={() => navigate(`/student/${usn}/events`)}
+              onClick={() => navigate(`/student/events`)}
             >
               View Activity Points
             </button>

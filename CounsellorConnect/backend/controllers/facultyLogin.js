@@ -1,6 +1,7 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const db = require("../config/db");
+const generateToken = require("../utils/generateToken");
 
 exports.loginFaculty = async (req, res) => {
   const { facultyid, password } = req.body;
@@ -20,14 +21,11 @@ exports.loginFaculty = async (req, res) => {
     if (user.password != password) {
       return res.status(401).json({ message: "Invalid credentials" });
     }
+    // if (!isMatch) {
+    //   return res.status(401).json({ message: "Invalid credentials" });
+    // }
 
-    // Generate the JWT token
-    const token = jwt.sign({ facultyid: user.facultyid }, process.env.JWT_SECRET, {
-      expiresIn: "1h",
-    });
-
-    // Send the response with the token
-    res.status(200).json({ message: "Login successful", token, facultyid });
+    generateToken(res, user, "faculty", `Welcome back, ${user.faculty_id}`);
   } catch (err) {
     console.error("Error during login:", err);
     res.status(500).json({ message: "Server error" });
