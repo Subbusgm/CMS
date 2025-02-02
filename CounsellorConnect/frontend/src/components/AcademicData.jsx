@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import axios from "axios";
-import Header from "./Header";
 import "./AcademicData.css"; // Assuming a CSS file for styling
+import Header2 from "./Header2";
 
 const AcademicData = () => {
   // const { usn } = useParams();
@@ -21,11 +19,7 @@ const AcademicData = () => {
         const response = await fetch(`http://localhost:5000/api/student/courses`, {
           method: "GET",
           credentials: "include",
-          // headers: {
-          //   Authorization: `Bearer ${localStorage.getItem("token")}`, // Pass token for authentication
-          // },
         });
-        // console.log(response.data);
 
         const data = await response.json();  
         console.log(data);
@@ -46,7 +40,7 @@ const AcademicData = () => {
 
   return (
     <div>
-      <Header />
+      <Header2 />
       <div className="academic-container">
         <h2 className="academic-title">Academic Performance</h2>
         {courses.length > 0 ? (

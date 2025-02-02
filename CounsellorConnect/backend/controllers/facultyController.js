@@ -4,12 +4,7 @@ const { validationResult } = require("express-validator");
 const db = require('../config/db');
 
 const facultyProfile = async (req, res) => {
-    // const { facultyId } = req.params; // Get faculty ID from request parameters
-    // console.log(facultyId);
-    
-  
     try {
-      // Query to fetch faculty details
       const token = req.cookies.token||""
       
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
@@ -158,11 +153,73 @@ const facultyProfile = async (req, res) => {
       res.status(500).json({ message: "Server error" });
     }
   };
+
+const getStudents = async(req, res) =>{
+
+  try{
+    const token = req.cookies.token||""
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const faculty_id = decoded.userId
+
+    // SQL query to fetch students assigned to the current faculty
+    const query = `
+      SELECT s.usn, s.first_name, s.last_name
+      FROM student s
+      WHERE s.faculty_id = ?;
+    `;
+
+    const [results] = await db.promise().execute(query, [faculty_id]);
+    
+    if (results.length === 0) {
+      return res.status(404).json({ message: "No student found for this faculty." });
+    }
+    
+    res.json(results);
+  } catch (err) {
+      console.error("Error fetching counselee", err);
+      res.status(500).json({ message: "Server error" });
+    }
+};
+
+const scheduleMeeting = async (req, res) =>{
+
+  console.log("HERE");
+  
+
+  const { student_usn, date, time, duration } = req.body;
+  if (!student_usn || !duration || !date || !time) {
+    return res.status(400).json({ message: 'All fields are required' });
+  }
+
+  try {
+    const [student] = await db.promise().execute('SELECT * FROM student WHERE usn = ?', [student_usn]);
+    if (student.length === 0) {
+      return res.status(404).json({ message: 'Student not found' });
+    }
+
+    const token = req.cookies.token||""
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const faculty_id = decoded.userId
+
+    const [result] = await db.promise().execute(
+      'INSERT INTO meeting (duration, date, time, student_usn, faculty_id) VALUES (?, ?, ?, ?, ?)', 
+      [duration, date, time, student_usn, faculty_id]
+    );
+
+    res.status(201).json({ message: 'Meeting scheduled successfully', meeting_id: result.insertId });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Error scheduling the meeting' });
+  }
+
+};
   
   
 module.exports = { 
     facultyProfile,
     getCounseleesActivityPoints,
-    getCounseleesAcademicPerformance
+    getCounseleesAcademicPerformance,
+    getStudents,
+    scheduleMeeting
 };
   
